@@ -1,0 +1,20 @@
+name: Auto Assign Workflow
+
+permissions:
+  pull-requests: write
+  issues: write
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    branches: [main, master]
+
+jobs:
+  auto-assign:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Auto Assign Action
+        uses: actions/auto-assign-action@v1.2.5
+        with:
+          configuration-path: '.github/auto_assign.yml'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
